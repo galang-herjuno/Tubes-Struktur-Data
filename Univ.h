@@ -4,13 +4,20 @@
 #include <string>
 using namespace std;
 
+// --- FORWARD DECLARATION ---
+// Memberi tahu compiler bahwa struct University dan Faculty akan didefinisikan nanti.
+struct University; 
+struct Faculty;
+
+// --- DEFINISI RELASI ---
 struct Relation{
-    University* univ;
-    Faculty* fac;
+    University* univ; // Sekarang compiler tahu ini adalah pointer ke struct University
+    Faculty* fac;     // Sekarang compiler tahu ini adalah pointer ke struct Faculty
     Relation* nextUniv;
     Relation* nextFac;
 };
 
+// --- DEFINISI UTAMA ---
 struct University{
     string nama;
     Relation* head;
