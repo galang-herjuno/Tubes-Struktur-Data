@@ -1,7 +1,4 @@
 #include "univ.h"
-#include <iostream>
-#include <climits>
-using namespace std;
 
 int main() {
     University* univHead = nullptr;

@@ -2,6 +2,7 @@
 #define UNIV_H
 #include <iostream>
 #include <string>
+#include <climits>
 using namespace std;
 
 struct University;
