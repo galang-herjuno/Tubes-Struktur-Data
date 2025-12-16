@@ -1,5 +1,4 @@
 #include "univ.h"
-#include <climits>
 
 void insertFirstUniv(University*& head, const string& nama, int tahun, int jmlMhs) {
     University* u = new University{nama, tahun, jmlMhs, nullptr, head};
