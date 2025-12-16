@@ -4,50 +4,53 @@
 #include <string>
 using namespace std;
 
-// --- FORWARD DECLARATION ---
-// Memberi tahu compiler bahwa struct University dan Faculty akan didefinisikan nanti.
-struct University; 
+struct University;
 struct Faculty;
 
-// --- DEFINISI RELASI ---
-struct Relation{
-    University* univ; // Sekarang compiler tahu ini adalah pointer ke struct University
-    Faculty* fac;     // Sekarang compiler tahu ini adalah pointer ke struct Faculty
+struct Relation {
+    University* univ;
+    Faculty* fac;
     Relation* nextUniv;
     Relation* nextFac;
 };
 
-// --- DEFINISI UTAMA ---
-struct University{
+struct University {
     string nama;
-    Relation* head;
+    int tahunBerdiri;
+    int jumlahMahasiswa;
+    Relation* relasiHead;
     University* next;
 };
 
-struct Faculty{
+struct Faculty {
     string nama;
-    Relation* head;
+    int jumlahDosen;
+    int jumlahMahasiswa;
+    Relation* relasiHead;
     Faculty* next;
 };
 
-University* createUniv(const string& nama);
-Faculty* createFac(const string& nama);
-
+void insertFirstUniv(University*& head, const string& nama, int tahun, int jmlMhs);
+void insertLastUniv(University*& head, const string& nama, int tahun, int jmlMhs);
+void deleteFirstUniv(University*& head);
+void deleteLastUniv(University*& head);
+void insertFirstFac(Faculty*& head, const string& nama, int jmlDosen, int jmlMhs);
+void insertLastFac(Faculty*& head, const string& nama, int jmlDosen, int jmlMhs);
+void deleteFirstFac(Faculty*& head);
+void deleteLastFac(Faculty*& head);
 bool addRelation(University* univ, Faculty* fac);
-
-void deleteUniv(University* head, const string& nama);
-void deleteFac(Faculty* head, const string& nama);
-
 bool removeRelation(University* univ, Faculty* fac);
-
+void deleteUniv(University*& head, const string& nama);
+void deleteFac(Faculty*& head, const string& nama);
 University* findUniversity(University* head, const string& name);
 Faculty* findFaculty(Faculty* head, const string& name);
-
 void showAllUniversities(University* head);
 void showFacultiesOfUniversity(University* univ);
 void showUniversitiesWithFaculty(Faculty* fac);
 void showFacultyList(Faculty* head);
 void showUniversityWithMostAndLeastFaculties(University* head);
-
+void showChildOfParent(University* univ, const string& facName);
+void deleteChildOfParent(University* univ, const string& facName);
+int countChildOfParent(University* univ);
 
 #endif

@@ -1,143 +1,129 @@
-#include "Univ.h"
-
+#include "univ.h"
+#include <iostream>
 using namespace std;
 
-// Fungsi utama
 int main() {
-    // Inisialisasi head untuk list University dan Faculty
     University* univHead = nullptr;
     Faculty* facHead = nullptr;
 
-    // --- 1. MEMBUAT ENTITAS BARU (University dan Faculty) ---
+    int pilihan;
+    do {
+        cout << "\n=== MENU DATA PERGURUAN TINGGI ===\n";
+        cout << "1. Insert Universitas (First)\n";
+        cout << "2. Insert Universitas (Last)\n";
+        cout << "3. Insert Fakultas (First)\n";
+        cout << "4. Insert Fakultas (Last)\n";
+        cout << "5. Hubungkan Universitas ke Fakultas\n";
+        cout << "6. Tampilkan semua Universitas\n";
+        cout << "7. Tampilkan semua Fakultas\n";
+        cout << "8. Hapus Universitas tertentu\n";
+        cout << "9. Hapus Fakultas tertentu\n";
+        cout << "10. Cari Universitas\n";
+        cout << "11. Cari Fakultas\n";
+        cout << "12. Tampilkan Universitas dengan fakultas terbanyak/tersedikit\n";
+        cout << "13. Cari Fakultas pada Universitas tertentu\n";
+        cout << "14. Hapus Fakultas pada Universitas tertentu\n";
+        cout << "15. Hitung jumlah Fakultas dari Universitas tertentu\n";
+        cout << "0. Keluar\n";
+        cout << "Pilihan: ";
+        cin >> pilihan;
 
-    cout << "--- 1. INISIALISASI UNIVERSITAS DAN FAKULTAS ---" << endl;
+        if (pilihan == 1) {
+            string nama; int tahun, jml;
+            cout << "Nama Universitas: "; cin >> nama;
+            cout << "Tahun berdiri: "; cin >> tahun;
+            cout << "Jumlah mahasiswa: "; cin >> jml;
+            insertFirstUniv(univHead, nama, tahun, jml);
+        }
+        else if (pilihan == 2) {
+            string nama; int tahun, jml;
+            cout << "Nama Universitas: "; cin >> nama;
+            cout << "Tahun berdiri: "; cin >> tahun;
+            cout << "Jumlah mahasiswa: "; cin >> jml;
+            insertLastUniv(univHead, nama, tahun, jml);
+        }
+        else if (pilihan == 3) {
+            string nama; int dosen, mhs;
+            cout << "Nama Fakultas: "; cin >> nama;
+            cout << "Jumlah dosen: "; cin >> dosen;
+            cout << "Jumlah mahasiswa: "; cin >> mhs;
+            insertFirstFac(facHead, nama, dosen, mhs);
+        }
+        else if (pilihan == 4) {
+            string nama; int dosen, mhs;
+            cout << "Nama Fakultas: "; cin >> nama;
+            cout << "Jumlah dosen: "; cin >> dosen;
+            cout << "Jumlah mahasiswa: "; cin >> mhs;
+            insertLastFac(facHead, nama, dosen, mhs);
+        }
+        else if (pilihan == 5) {
+            string univName, facName;
+            cout << "Nama Universitas: "; cin >> univName;
+            cout << "Nama Fakultas: "; cin >> facName;
+            University* u = findUniversity(univHead, univName);
+            Faculty* f = findFaculty(facHead, facName);
+            if (u && f) addRelation(u, f);
+            else cout << "Universitas atau Fakultas tidak ditemukan!\n";
+        }
+        else if (pilihan == 6) {
+            showAllUniversities(univHead);
+        }
+        else if (pilihan == 7) {
+            showFacultyList(facHead);
+        }
+        else if (pilihan == 8) {
+            string nama;
+            cout << "Nama Universitas yang dihapus: "; cin >> nama;
+            deleteUniv(univHead, nama);
+        }
+        else if (pilihan == 9) {
+            string nama;
+            cout << "Nama Fakultas yang dihapus: "; cin >> nama;
+            deleteFac(facHead, nama);
+        }
+        else if (pilihan == 10) {
+            string nama;
+            cout << "Cari Universitas: "; cin >> nama;
+            University* u = findUniversity(univHead, nama);
+            if (u) cout << "Universitas ditemukan: " << u->nama << endl;
+            else cout << "Universitas tidak ditemukan.\n";
+        }
+        else if (pilihan == 11) {
+            string nama;
+            cout << "Cari Fakultas: "; cin >> nama;
+            Faculty* f = findFaculty(facHead, nama);
+            if (f) cout << "Fakultas ditemukan: " << f->nama << endl;
+            else cout << "Fakultas tidak ditemukan.\n";
+        }
+        else if (pilihan == 12) {
+            showUniversityWithMostAndLeastFaculties(univHead);
+        }
+        else if (pilihan == 13) {
+            string univName, facName;
+            cout << "Nama Universitas: "; cin >> univName;
+            cout << "Nama Fakultas: "; cin >> facName;
+            University* u = findUniversity(univHead, univName);
+            if (u) showChildOfParent(u, facName);
+            else cout << "Universitas tidak ditemukan.\n";
+        }
+        else if (pilihan == 14) {
+            string univName, facName;
+            cout << "Nama Universitas: "; cin >> univName;
+            cout << "Nama Fakultas: "; cin >> facName;
+            University* u = findUniversity(univHead, univName);
+            if (u) deleteChildOfParent(u, facName);
+            else cout << "Universitas tidak ditemukan.\n";
+        }
+        else if (pilihan == 15) {
+            string univName;
+            cout << "Nama Universitas: "; cin >> univName;
+            University* u = findUniversity(univHead, univName);
+            if (u) cout << "Jumlah fakultas: " << countChildOfParent(u) << endl;
+            else cout << "Universitas tidak ditemukan.\n";
+        }
 
-    // Membuat University
-    University* u1 = createUniv("ITB");
-    University* u2 = createUniv("UGM");
-    University* u3 = createUniv("UI");
-    
-    // Menghubungkan University ke list utama (manual Prepend)
-    u1->next = univHead; univHead = u1;
-    u2->next = univHead; univHead = u2;
-    u3->next = univHead; univHead = u3;
-    
-    // Membuat Faculty
-    Faculty* f1 = createFac("Teknik");
-    Faculty* f2 = createFac("Ekonomi");
-    Faculty* f3 = createFac("Kedokteran");
-    Faculty* f4 = createFac("Sains");
+    } while (pilihan != 0);
 
-    // Menghubungkan Faculty ke list utama (manual Prepend)
-    f1->next = facHead; facHead = f1;
-    f2->next = facHead; facHead = f2;
-    f3->next = facHead; facHead = f3;
-    f4->next = facHead; facHead = f4;
-
-    showAllUniversities(univHead);
-    showFacultyList(facHead);
-    cout << "------------------------------------------------" << endl << endl;
-
-    // --- 2. MENAMBAH RELASI (ASSOCIATION) ---
-    
-    cout << "--- 2. MENAMBAH RELASI ANTAR ENTITAS ---" << endl;
-    
-    // ITB memiliki Teknik, Sains
-    addRelation(u1, f1); 
-    addRelation(u1, f4);
-
-    // UGM memiliki Teknik, Ekonomi, Kedokteran
-    addRelation(u2, f1);
-    addRelation(u2, f2);
-    addRelation(u2, f3);
-
-    // UI memiliki Ekonomi, Kedokteran, Sains
-    addRelation(u3, f2);
-    addRelation(u3, f3);
-    addRelation(u3, f4);
-    
-    cout << "Relasi berhasil dibuat." << endl;
-    cout << "------------------------------------------------" << endl << endl;
-
-    // --- 3. MENAMPILKAN RELASI DARI KEDUA SISI ---
-    
-    cout << "--- 3. MENAMPILKAN DATA BERELASI ---" << endl;
-    
-    // a. Tampilkan semua Fakultas di ITB
-    showFacultiesOfUniversity(u1); 
-    cout << endl;
-
-    // b. Tampilkan semua University yang memiliki Fakultas Kedokteran
-    showUniversitiesWithFaculty(f3); 
-    cout << endl;
-    
-    // c. Tampilkan yang paling banyak dan sedikit Fakultas
-    showUniversityWithMostAndLeastFaculties(univHead);
-    cout << "------------------------------------------------" << endl << endl;
-
-    // --- 4. MENGHAPUS RELASI ---
-    
-    cout << "--- 4. MENGHAPUS RELASI (ITB tidak lagi memiliki Sains) ---" << endl;
-    
-    if (removeRelation(u1, f4)) {
-        cout << "Relasi (ITB - Sains) berhasil dihapus." << endl;
-    } else {
-        cout << "Gagal menghapus relasi." << endl;
-    }
-    cout << endl;
-
-    // Verifikasi setelah penghapusan relasi
-    showFacultiesOfUniversity(u1);
-    cout << endl;
-    
-    // Verifikasi Fakultas Sains
-    showUniversitiesWithFaculty(f4);
-    cout << "------------------------------------------------" << endl << endl;
-    
-    // --- 5. PENCARIAN ENTITAS ---
-    
-    cout << "--- 5. PENCARIAN ENTITAS ---" << endl;
-    
-    University* foundUniv = findUniversity(univHead, "UGM");
-    if (foundUniv) {
-        cout << "Ditemukan University: " << foundUniv->nama << endl;
-    }
-    
-    Faculty* foundFac = findFaculty(facHead, "Teknik");
-    if (foundFac) {
-        cout << "Ditemukan Faculty: " << foundFac->nama << endl;
-    }
-    cout << "------------------------------------------------" << endl << endl;
-    
-    // --- 6. MENGHAPUS ENTITAS (Contoh) ---
-    
-    cout << "--- 6. MENGHAPUS ENTITAS (UGM) ---" << endl;
-    // PENTING: Sebelum memanggil deleteUniv untuk UGM, 
-    // semua relasinya HARUS dihapus terlebih dahulu!
-    
-    // Hapus semua relasi UGM secara manual (simulasi)
-    // Walaupun u2 (UGM) memiliki head, kita perlu traverse dan panggil removeRelation
-    removeRelation(u2, f1); // UGM - Teknik
-    removeRelation(u2, f2); // UGM - Ekonomi
-    removeRelation(u2, f3); // UGM - Kedokteran
-    
-    // Sekarang aman untuk menghapus UGM dari list utama
-    // CATATAN: Karena fungsi deleteUniv tidak mengembalikan head baru, 
-    // kita harus pastikan UGM BUKAN head list saat dipanggil.
-    deleteUniv(univHead, "UGM"); // UGM harusnya bukan head (UI dan ITB ada di depannya)
-
-    cout << "University UGM dan relasinya telah dihapus." << endl;
-    cout << endl;
-    
-    // Verifikasi University yang tersisa
-    showAllUniversities(univHead);
-    cout << endl;
-    showUniversityWithMostAndLeastFaculties(univHead);
-    
-    cout << "--- PROGRAM SELESAI ---" << endl;
-
-    // (Kode tambahan untuk cleanup memori yang lebih menyeluruh biasanya diperlukan di akhir,
-    // tetapi ini di luar cakupan fungsi yang diminta.)
-
+    cout << "Program selesai.\n";
     return 0;
 }
