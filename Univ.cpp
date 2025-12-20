@@ -236,3 +236,14 @@ int countChildOfParent(University* univ) {
     }
     return count;
 }
+
+    void clearScreen() {
+    cin.ignore();
+    cout << " Klik enter untuk melanjutkan... ";
+    cin.get();
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+    }

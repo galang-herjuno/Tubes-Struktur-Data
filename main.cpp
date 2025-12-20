@@ -3,8 +3,8 @@
 int main() {
     University* univHead = nullptr;
     Faculty* facHead = nullptr;
-
     int pilihan;
+
     do {
         cout << "\n=== MENU DATA PERGURUAN TINGGI ===\n";
         cout << "1. Insert Universitas (First)\n";
@@ -32,6 +32,7 @@ int main() {
             cout << "Tahun berdiri: "; cin >> tahun;
             cout << "Jumlah mahasiswa: "; cin >> jml;
             insertFirstUniv(univHead, nama, tahun, jml);
+            clearScreen();
         }
         else if (pilihan == 2) {
             string nama; int tahun, jml;
@@ -39,6 +40,7 @@ int main() {
             cout << "Tahun berdiri: "; cin >> tahun;
             cout << "Jumlah mahasiswa: "; cin >> jml;
             insertLastUniv(univHead, nama, tahun, jml);
+            clearScreen();
         }
         else if (pilihan == 3) {
             string nama; int dosen, mhs;
@@ -46,6 +48,7 @@ int main() {
             cout << "Jumlah dosen: "; cin >> dosen;
             cout << "Jumlah mahasiswa: "; cin >> mhs;
             insertFirstFac(facHead, nama, dosen, mhs);
+            clearScreen();
         }
         else if (pilihan == 4) {
             string nama; int dosen, mhs;
@@ -53,6 +56,7 @@ int main() {
             cout << "Jumlah dosen: "; cin >> dosen;
             cout << "Jumlah mahasiswa: "; cin >> mhs;
             insertLastFac(facHead, nama, dosen, mhs);
+            clearScreen();
         }
         else if (pilihan == 5) {
             string univName, facName;
@@ -62,22 +66,27 @@ int main() {
             Faculty* f = findFaculty(facHead, facName);
             if (u && f) addRelation(u, f);
             else cout << "Universitas atau Fakultas tidak ditemukan!\n";
+            clearScreen();
         }
         else if (pilihan == 6) {
             showAllUniversities(univHead);
+            clearScreen();
         }
         else if (pilihan == 7) {
             showFacultyList(facHead);
+            clearScreen();
         }
         else if (pilihan == 8) {
             string nama;
             cout << "Nama Universitas yang dihapus: "; cin >> nama;
             deleteUniv(univHead, nama);
+            clearScreen();
         }
         else if (pilihan == 9) {
             string nama;
             cout << "Nama Fakultas yang dihapus: "; cin >> nama;
             deleteFac(facHead, nama);
+            clearScreen();
         }
         else if (pilihan == 10) {
             string nama;
@@ -85,6 +94,7 @@ int main() {
             University* u = findUniversity(univHead, nama);
             if (u) cout << "Universitas ditemukan: " << u->nama << endl;
             else cout << "Universitas tidak ditemukan.\n";
+            clearScreen();
         }
         else if (pilihan == 11) {
             string nama;
@@ -92,9 +102,11 @@ int main() {
             Faculty* f = findFaculty(facHead, nama);
             if (f) cout << "Fakultas ditemukan: " << f->nama << endl;
             else cout << "Fakultas tidak ditemukan.\n";
+            clearScreen();
         }
         else if (pilihan == 12) {
             showUniversityWithMostAndLeastFaculties(univHead);
+            clearScreen();
         }
         else if (pilihan == 13) {
             string univName, facName;
@@ -103,6 +115,7 @@ int main() {
             University* u = findUniversity(univHead, univName);
             if (u) showChildOfParent(u, facName);
             else cout << "Universitas tidak ditemukan.\n";
+            clearScreen();
         }
         else if (pilihan == 14) {
             string univName, facName;
@@ -111,6 +124,7 @@ int main() {
             University* u = findUniversity(univHead, univName);
             if (u) deleteChildOfParent(u, facName);
             else cout << "Universitas tidak ditemukan.\n";
+            clearScreen();
         }
         else if (pilihan == 15) {
             string univName;
@@ -118,10 +132,12 @@ int main() {
             University* u = findUniversity(univHead, univName);
             if (u) cout << "Jumlah fakultas: " << countChildOfParent(u) << endl;
             else cout << "Universitas tidak ditemukan.\n";
+            clearScreen();
         }
 
     } while (pilihan != 0);
 
     cout << "Program selesai.\n";
+    clearScreen();
     return 0;
 }

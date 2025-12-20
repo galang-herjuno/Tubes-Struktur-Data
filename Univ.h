@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <climits>
+#include <cstdlib>
 using namespace std;
 
 struct University;
@@ -53,5 +54,6 @@ void showUniversityWithMostAndLeastFaculties(University* head);
 void showChildOfParent(University* univ, const string& facName);
 void deleteChildOfParent(University* univ, const string& facName);
 int countChildOfParent(University* univ);
+void clearScreen();
 
 #endif
