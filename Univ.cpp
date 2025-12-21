@@ -239,7 +239,7 @@ int countChildOfParent(University* univ) {
 
     void clearScreen() {
     cin.ignore();
-    cout << " Klik enter untuk melanjutkan... ";
+    cout << "\n\nKlik enter untuk melanjutkan... ";
     cin.get();
     #ifdef _WIN32
         system("cls");

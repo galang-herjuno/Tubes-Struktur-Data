@@ -5,6 +5,9 @@ int main() {
     Faculty* facHead = nullptr;
     int pilihan;
 
+    cout << "\n\n\t\t\tPENTING!!\nPastikan inputan anda tidak menggunakan spasi. gunakan '_' sebagai spasi.\nTekan enter";
+    clearScreen();
+
     do {
         cout << "\n=== MENU DATA PERGURUAN TINGGI ===\n";
         cout << "1. Insert Universitas (First)\n";
